@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Video Engine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="game-container">
+        <!-- Video Layer -->
+        <video id="main-video" playsinline webkit-playsinline>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- UI Overlay Layer -->
+        <div id="ui-layer">
+            <div id="start-screen" class="screen active">
+                <h1>Ready to Begin?</h1>
+                <button id="start-btn" class="primary-btn">START EXPERIENCE</button>
+            </div>
+            
+            <div id="game-ui" class="screen hidden">
+                <div id="debug-info" style="position:absolute; top:10px; left:10px; color:white; display:none;"></div>
+                <div id="interaction-container"></div>
+            </div>
+
+            <div id="end-screen" class="screen hidden">
+                <h1 id="end-title">Terminated</h1>
+                <p id="end-reason"></p>
+                <button id="restart-btn" class="secondary-btn">RETRY</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="engine.js"></script>
+</body>
+</html>

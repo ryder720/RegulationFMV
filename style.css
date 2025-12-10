@@ -1,0 +1,198 @@
+:root {
+    --primary-color: #ff3e3e;
+    /* A striking red for urgency */
+    --accent-color: #00e5ff;
+    /* Cyan for contrast */
+    --bg-dark: #0a0a0a;
+    --text-light: #f4f4f4;
+    --glass-bg: rgba(20, 20, 20, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    /* Prevent selection during frantic clicking */
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-dark);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+}
+
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through to video if needed, but managing via children */
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 0.5s ease;
+    pointer-events: auto;
+}
+
+.screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#game-ui {
+    background: transparent;
+}
+
+h1 {
+    color: var(--text-light);
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+button {
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(10px);
+}
+
+.primary-btn {
+    background: var(--text-light);
+    color: var(--bg-dark);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.primary-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+}
+
+.secondary-btn {
+    background: transparent;
+    border: 2px solid var(--text-light);
+    color: var(--text-light);
+}
+
+.secondary-btn:hover {
+    background: var(--text-light);
+    color: var(--bg-dark);
+}
+
+/* QTE / Interaction Elements */
+.qte-button {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 62, 62, 0.4);
+    /* Slightly more opaque */
+    border: 3px solid var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    animation: pulse 1s infinite;
+    pointer-events: auto;
+    z-index: 1000;
+    /* Ensure it floats above everything */
+}
+
+.qte-button::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: ripple 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+#interaction-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    pointer-events: none;
+    /* Children will have pointer-events: auto */
+}
