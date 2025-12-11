@@ -47,6 +47,13 @@ video {
     height: auto;
     object-fit: cover;
     z-index: 0;
+    transition: object-fit 0.3s ease;
+    /* Smooth transition */
+}
+
+.video-contain {
+    object-fit: contain !important;
+    background-color: black;
 }
 
 #ui-layer {

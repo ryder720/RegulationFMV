@@ -20,11 +20,16 @@ class GameEngine {
 
         // Bindings
         this.update = this.update.bind(this);
+
         this.handleVideoEnded = this.handleVideoEnded.bind(this);
+        this.handleResize = this.handleResize.bind(this);
 
         // Listeners
         this.video.addEventListener('timeupdate', this.update);
+
         this.video.addEventListener('ended', this.handleVideoEnded);
+        this.video.addEventListener('loadedmetadata', this.handleResize);
+        window.addEventListener('resize', this.handleResize);
 
         // Start Screen
         document.getElementById('start-btn').addEventListener('click', () => {
@@ -146,6 +151,27 @@ class GameEngine {
 
         // Debugging
         // this.debugInfo.innerText = `Time: ${currentTime.toFixed(2)} | Scene: ${this.currentSceneId}`;
+    }
+
+
+
+
+    handleResize() {
+        if (!this.video) return;
+
+        const videoRatio = this.video.videoWidth / this.video.videoHeight;
+        const screenRatio = window.innerWidth / window.innerHeight;
+
+        // If screen is significantly narrower than the video (e.g. Mobile Portrait vs Landscape Video)
+        // We switch to 'contain' to show the full width.
+        // If screen is wider (Desktop or Landscape Mobile), we use 'cover' (default in CSS, or explicit here)
+
+        // Threshold: If window is thinner than video
+        if (screenRatio < videoRatio) {
+            this.video.classList.add('video-contain');
+        } else {
+            this.video.classList.remove('video-contain');
+        }
     }
 
     triggerEvent(eventConfig) {
